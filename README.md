@@ -1,6 +1,6 @@
 # kontest
 
-A new Flutter project.
+Kontest is an Event Organinsing Application made with **Flutter & Firebase**. With this an user can create events, join events, invite people through Whatsapp and win prize money. This app is to be integrated with Payments via Stripe and Event Recommendation System
 
 ## Getting Started
 
@@ -14,3 +14,17 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+## TODO
+
+TODO
+ 
+- [x]Design Wireframe
+
+- [x]Create Flutter Project and Sync it with Firebase
+
+- [ ]Implement Mobile Number/OTP based login with Firebase
+
+- [ ]Add Registration Form for Signup
+
+- [ ]Add Bottom Nav with HomePage, Search Events, Create Event, Profile Section
