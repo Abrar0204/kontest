@@ -17,12 +17,12 @@ samples, guidance on mobile development, and a full API reference.
 
 TODO
  
-- [x]Design Wireframe
+- [x] Design Wireframe
 
-- [x]Create Flutter Project and Sync it with Firebase
+- [x] Create Flutter Project and Sync it with Firebase
 
-- [ ]Implement Mobile Number/OTP based login with Firebase
+- [ ] Implement Mobile Number/OTP based login with Firebase
 
-- [ ]Add Registration Form for Signup
+- [ ] Add Registration Form for Signup
 
-- [ ]Add Bottom Nav with HomePage, Search Events, Create Event, Profile Section
+- [ ] Add Bottom Nav with HomePage, Search Events, Create Event, Profile Section
