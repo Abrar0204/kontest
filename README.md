@@ -1,4 +1,4 @@
-# kontest
+# Kontest
 
 Kontest is an Event Organinsing Application made with **Flutter & Firebase**. With this an user can create events, join events, invite people through Whatsapp and win prize money. This app is to be integrated with Payments via Stripe and Event Recommendation System
 
