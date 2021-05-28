@@ -9,14 +9,35 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
+        brightness: Brightness.dark,
         fontFamily: "Inter",
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Kontest"),
+        primaryColor: Color(0xff1e2630),
+        accentColor: Color(0xff8250ca),
+        scaffoldBackgroundColor: Color(0xff1e2630),
+        textTheme: TextTheme(
+          headline1: TextStyle(
+            fontSize: 32.0,
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
+          ),
         ),
-        body: Center(
-          child: Text("Kontest"),
+      ),
+      home: Home(),
+    );
+  }
+}
+
+class Home extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Kontest"),
+      ),
+      body: Center(
+        child: Text(
+          "Kontest",
+          style: Theme.of(context).textTheme.headline1,
         ),
       ),
     );
