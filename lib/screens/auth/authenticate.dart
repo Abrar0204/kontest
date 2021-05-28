@@ -2,6 +2,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kontest/services/auth.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:video_player/video_player.dart';
 
 class Authenticate extends StatefulWidget {
   @override
@@ -10,12 +12,26 @@ class Authenticate extends StatefulWidget {
 
 class _AuthenticateState extends State<Authenticate> {
   final textController = TextEditingController();
-
+  VideoPlayerController _controller;
   final phoneNumber = TextEditingController();
   final otp = TextEditingController();
   bool otpSent = false;
   bool isLoading = false;
   String verificationID = "";
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _controller = VideoPlayerController.asset("assets/videos/login.mp4")
+      ..initialize().then((_) {
+        // Once the video has been loaded we play the video and set looping to true.
+        _controller.play();
+        _controller.setLooping(true);
+        // Ensure the first frame is shown after the video is initialized.
+        setState(() {});
+      });
+  }
+
   final AuthService auth = AuthService();
 
   Widget phoneNumberForm() {
@@ -113,30 +129,32 @@ class _AuthenticateState extends State<Authenticate> {
     await auth.instance.signInWithCredential(credential);
   }
 
+  Widget videoPlayer() {
+    return Container(
+      child: _controller != null ? VideoPlayer(_controller) : Container(),
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: isLoading
-            ? Center(
-                child: CircularProgressIndicator(),
-              )
-            : Container(
-                alignment: Alignment.center,
-                child: Column(
-                  children: [
-                    Image.asset(
-                      'assets/images/kontest_logo.png',
-                      height: 200,
-                    ),
-                    Text(
-                      "Kontest",
-                      style: Theme.of(context).textTheme.headline1,
-                    ),
-                    !otpSent ? phoneNumberForm() : otpForm()
-                  ],
-                ),
-              ),
+      body: SlidingUpPanel(
+        body: Container(
+          child: videoPlayer(),
+        ),
+        panel: Container(
+          color: Theme.of(context).primaryColor,
+          alignment: Alignment.center,
+          child: Column(
+            children: [!otpSent ? phoneNumberForm() : otpForm()],
+          ),
+        ),
       ),
     );
   }
