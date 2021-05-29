@@ -17,6 +17,9 @@ class _AuthenticateState extends State<Authenticate> {
   bool otpSent = false;
   bool isLoading = false;
   String verificationID = "";
+  PanelController _panelController = PanelController();
+  bool panelOpen = false;
+  String dropdownValue = '+91';
   @override
   void initState() {
     super.initState();
@@ -32,55 +35,143 @@ class _AuthenticateState extends State<Authenticate> {
 
   final AuthService auth = AuthService();
 
-  Widget phoneNumberForm() {
-    return Form(
-        child: Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: TextFormField(
-            controller: phoneNumber,
-            decoration: InputDecoration(
-              hintText: "Phone Number",
-            ),
-          ),
-        ),
-        ElevatedButton(
-          onPressed: () async {
-            setState(() {
-              isLoading = true;
-            });
-            await signWithPhoneNumber();
-          },
-          child: Text("Get OTP"),
-        ),
-      ],
-    ));
+  Widget countryCodeDropDown() {
+    return DropdownButton<String>(
+      value: dropdownValue,
+      icon: const Icon(Icons.expand_more),
+      iconSize: 24,
+      elevation: 16,
+      itemHeight: 200,
+      underline: Container(height: 2, color: Theme.of(context).accentColor),
+      onChanged: (String newValue) {
+        setState(() {
+          dropdownValue = newValue;
+        });
+      },
+      items:
+          <String>['+91', '+1'].map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+    );
   }
 
-  Widget otpForm() {
-    return Form(
-      child: Column(
+  Widget phoneNumberForm() {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: 10,
+      ),
+      child: Form(
+          child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: TextFormField(
-              controller: otp,
+          SizedBox(
+            height: 10,
+          ),
+          ListTile(
+            leading: countryCodeDropDown(),
+            title: TextFormField(
+              controller: phoneNumber,
               decoration: InputDecoration(
-                hintText: "Enter OTP",
+                hintText: "Enter your Phone Number",
+                focusColor: Theme.of(context).accentColor,
               ),
             ),
           ),
-          ElevatedButton(
-            onPressed: () async {
-              PhoneAuthCredential phoneAuthCredential =
-                  PhoneAuthProvider.credential(
-                      verificationId: verificationID, smsCode: otp.text);
-              signInWithCredential(phoneAuthCredential);
+          SizedBox(
+            height: 20,
+          ),
+          Text(
+            'By signing up, I agree to the Terms of Service and Privacy Policy, including usage of Cookies',
+            style: TextStyle(
+              color: Colors.grey,
+              fontSize: 12,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          GestureDetector(
+            onTap: () async {
+              setState(() {
+                isLoading = true;
+              });
+              await signWithPhoneNumber();
             },
-            child: Text("Verify OTP"),
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 10,
+              ),
+              decoration: BoxDecoration(
+                color: Theme.of(context).accentColor,
+                borderRadius: BorderRadius.circular(10000),
+              ),
+              child: Text("GET OTP"),
+            ),
           )
         ],
+      )),
+    );
+  }
+
+  Widget otpForm() {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: 10,
+      ),
+      child: Form(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 10,
+            ),
+            TextFormField(
+              controller: otp,
+              decoration: InputDecoration(
+                focusColor: Theme.of(context).primaryColor,
+                hintText: "Enter OTP",
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              'By signing up, I agree to the Terms of Service and Privacy Policy, including usage of Cookies',
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 12,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            GestureDetector(
+              onTap: () async {
+                PhoneAuthCredential phoneAuthCredential =
+                    PhoneAuthProvider.credential(
+                        verificationId: verificationID, smsCode: otp.text);
+                signInWithCredential(phoneAuthCredential);
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 10,
+                ),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).accentColor,
+                  borderRadius: BorderRadius.circular(10000),
+                ),
+                child: Text("VERIFY OTP"),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -139,42 +230,104 @@ class _AuthenticateState extends State<Authenticate> {
     _controller.dispose();
   }
 
+  Widget slidePanel() {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Icon(panelOpen ? Icons.expand_more : Icons.expand_less),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: !panelOpen
+              ? Text(
+                  'Get Started',
+                  style: Theme.of(context).textTheme.headline2,
+                )
+              : Text(
+                  'Create your Account',
+                  style: Theme.of(context).textTheme.headline2,
+                ),
+        ),
+        isLoading
+            ? Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              )
+            : !otpSent
+                ? phoneNumberForm()
+                : otpForm()
+      ],
+    );
+  }
+
+  Widget bodyPanel() {
+    return Stack(
+      children: [
+        Container(
+          child: videoPlayer(),
+        ),
+        Positioned(
+          width: MediaQuery.of(context).size.width,
+          top: 200,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                "assets/images/kontest_swords.png",
+                height: 80,
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              Container(
+                child: Text(
+                  'Kontest',
+                  style: Theme.of(context).textTheme.headline1,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Positioned(
+          width: MediaQuery.of(context).size.width,
+          bottom: 120,
+          child: Center(
+            child: Text(
+              "Create, join events across globe",
+              style: Theme.of(context).textTheme.headline3,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SlidingUpPanel(
-        backdropEnabled: true,
+        controller: _panelController,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(24.0),
           topRight: Radius.circular(24.0),
         ),
         color: Theme.of(context).primaryColor,
-        body: Stack(children: [
-          Container(
-            child: videoPlayer(),
-          ),
-          Container(
-            child: Text('Kontest'),
-          ),
-        ]),
-        collapsed: Center(
-            child: Column(
-          children: [
-            SizedBox(height: 10),
-            Icon(Icons.expand_less),
-            SizedBox(height: 10),
-            Text(
-              'Get Started',
-              style: TextStyle(fontSize: 20),
-            ),
-          ],
-        )),
-        panel: Column(
-          children: [
-            SizedBox(height: 90),
-            !otpSent ? phoneNumberForm() : otpForm()
-          ],
-        ),
+        onPanelOpened: () {
+          setState(() {
+            panelOpen = true;
+          });
+        },
+        onPanelClosed: () {
+          setState(() {
+            panelOpen = false;
+          });
+        },
+        body: bodyPanel(),
+        panel: slidePanel(),
       ),
     );
   }

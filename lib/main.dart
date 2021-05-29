@@ -25,9 +25,20 @@ class MyApp extends StatelessWidget {
           primaryColor: Color(0xff1e2630),
           accentColor: Color(0xff8250ca),
           scaffoldBackgroundColor: Color(0xff1e2630),
+          canvasColor: Color(0xff1e2630),
           textTheme: TextTheme(
             headline1: TextStyle(
               fontSize: 32.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+            headline2: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+            headline3: TextStyle(
+              fontSize: 18.0,
               fontWeight: FontWeight.w500,
               color: Colors.white,
             ),
