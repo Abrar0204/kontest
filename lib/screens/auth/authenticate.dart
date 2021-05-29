@@ -1,4 +1,3 @@
-// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kontest/services/auth.dart';
@@ -20,7 +19,6 @@ class _AuthenticateState extends State<Authenticate> {
   String verificationID = "";
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _controller = VideoPlayerController.asset("assets/videos/login.mp4")
       ..initialize().then((_) {
@@ -145,19 +143,37 @@ class _AuthenticateState extends State<Authenticate> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SlidingUpPanel(
-        body: Container(
-          child: videoPlayer(),
+        backdropEnabled: true,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(24.0),
+          topRight: Radius.circular(24.0),
         ),
-        panel: Container(
-          color: Theme.of(context).primaryColor,
-          alignment: Alignment.center,
-          child: isLoading
-              ? Container(
-                  child: CircularProgressIndicator(),
-                )
-              : !otpSent
-                  ? phoneNumberForm()
-                  : otpForm(),
+        color: Theme.of(context).primaryColor,
+        body: Stack(children: [
+          Container(
+            child: videoPlayer(),
+          ),
+          Container(
+            child: Text('Kontest'),
+          ),
+        ]),
+        collapsed: Center(
+            child: Column(
+          children: [
+            SizedBox(height: 10),
+            Icon(Icons.expand_less),
+            SizedBox(height: 10),
+            Text(
+              'Get Started',
+              style: TextStyle(fontSize: 20),
+            ),
+          ],
+        )),
+        panel: Column(
+          children: [
+            SizedBox(height: 90),
+            !otpSent ? phoneNumberForm() : otpForm()
+          ],
         ),
       ),
     );
