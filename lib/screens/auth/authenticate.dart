@@ -151,9 +151,13 @@ class _AuthenticateState extends State<Authenticate> {
         panel: Container(
           color: Theme.of(context).primaryColor,
           alignment: Alignment.center,
-          child: Column(
-            children: [!otpSent ? phoneNumberForm() : otpForm()],
-          ),
+          child: isLoading
+              ? Container(
+                  child: CircularProgressIndicator(),
+                )
+              : !otpSent
+                  ? phoneNumberForm()
+                  : otpForm(),
         ),
       ),
     );
