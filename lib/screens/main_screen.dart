@@ -47,7 +47,7 @@ class _MainScreenState extends State<MainScreen> {
             items: [
               BottomNavigationBarItem(
                 icon: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(4.0),
                   child: Icon(
                       currentIndex == 0 ? Icons.home : Icons.home_outlined),
                 ),
@@ -55,14 +55,14 @@ class _MainScreenState extends State<MainScreen> {
               ),
               BottomNavigationBarItem(
                 icon: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(4.0),
                   child: Icon(Icons.search),
                 ),
                 label: "",
               ),
               BottomNavigationBarItem(
                 icon: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(4.0),
                   child: Icon(currentIndex == 2
                       ? Icons.add_circle
                       : Icons.add_circle_outline),
@@ -71,7 +71,7 @@ class _MainScreenState extends State<MainScreen> {
               ),
               BottomNavigationBarItem(
                 icon: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(4.0),
                   child: Icon(
                       currentIndex == 3 ? Icons.person : Icons.person_outline),
                 ),

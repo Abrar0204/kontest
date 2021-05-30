@@ -30,17 +30,27 @@ class MyApp extends StatelessWidget {
             backgroundColor: Color(0xff2F3B49),
           ),
           textTheme: TextTheme(
+            subtitle1: TextStyle(
+              color: Colors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.w300,
+            ),
             headline1: TextStyle(
               fontSize: 32.0,
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
             headline2: TextStyle(
-              fontSize: 20.0,
+              fontSize: 26.0,
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
             headline3: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+            headline4: TextStyle(
               fontSize: 18.0,
               fontWeight: FontWeight.w500,
               color: Colors.white,

@@ -242,11 +242,11 @@ class _AuthenticateState extends State<Authenticate> {
           child: !panelOpen
               ? Text(
                   'Get Started',
-                  style: Theme.of(context).textTheme.headline2,
+                  style: Theme.of(context).textTheme.headline3,
                 )
               : Text(
                   'Create your Account',
-                  style: Theme.of(context).textTheme.headline2,
+                  style: Theme.of(context).textTheme.headline3,
                 ),
         ),
         isLoading
@@ -297,7 +297,7 @@ class _AuthenticateState extends State<Authenticate> {
           child: Center(
             child: Text(
               "Create, join events across globe",
-              style: Theme.of(context).textTheme.headline3,
+              style: Theme.of(context).textTheme.headline4,
             ),
           ),
         ),
