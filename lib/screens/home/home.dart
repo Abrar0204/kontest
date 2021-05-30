@@ -11,26 +11,15 @@ class _HomeState extends State<Home> {
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Kontest"),
-        elevation: 0,
-      ),
-      body: Center(
-          child: Column(
-        children: [
-          Text(
-            "Kontest Of",
+    return SafeArea(
+      child: Scaffold(
+        body: Center(
+          child: Text(
+            "Home",
             style: Theme.of(context).textTheme.headline1,
           ),
-          ElevatedButton(
-            onPressed: () {
-              auth.signOut();
-            },
-            child: Text("Sign Out"),
-          )
-        ],
-      )),
+        ),
+      ),
     );
   }
 }

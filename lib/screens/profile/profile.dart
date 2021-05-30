@@ -8,8 +8,15 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("Profile"),
+    return SafeArea(
+      child: Scaffold(
+        body: Center(
+          child: Text(
+            "Profile",
+            style: Theme.of(context).textTheme.headline1,
+          ),
+        ),
+      ),
     );
   }
 }

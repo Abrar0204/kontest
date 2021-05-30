@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kontest/screens/add_event.dart/add_evetn.dart';
+import 'package:kontest/screens/add_events/add_events.dart';
 import 'package:kontest/screens/home/home.dart';
 import 'package:kontest/screens/profile/profile.dart';
 import 'package:kontest/screens/search/search.dart';
@@ -22,10 +22,7 @@ class _MainScreenState extends State<MainScreen> {
                   ? AddEvent()
                   : Profile(),
       bottomNavigationBar: Container(
-        margin: EdgeInsets.symmetric(
-          horizontal: 10,
-          vertical: 15,
-        ),
+        margin: EdgeInsets.all(20),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(30),
           child: BottomNavigationBar(
