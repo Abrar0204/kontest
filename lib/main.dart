@@ -26,6 +26,9 @@ class MyApp extends StatelessWidget {
           accentColor: Color(0xff8250ca),
           scaffoldBackgroundColor: Color(0xff1e2630),
           canvasColor: Color(0xff1e2630),
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            backgroundColor: Color(0xff2F3B49),
+          ),
           textTheme: TextTheme(
             headline1: TextStyle(
               fontSize: 32.0,

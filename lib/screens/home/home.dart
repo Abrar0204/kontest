@@ -8,7 +8,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   AuthService auth = AuthService();
-
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +19,6 @@ class _HomeState extends State<Home> {
       body: Center(
           child: Column(
         children: [
-          Image.asset('assets/images/kontest_logo.png'),
           Text(
             "Kontest Of",
             style: Theme.of(context).textTheme.headline1,
