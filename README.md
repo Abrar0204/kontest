@@ -21,8 +21,10 @@ TODO
 
 - [x] Create Flutter Project and Sync it with Firebase
 
-- [ ] Implement Mobile Number/OTP based login with Firebase
+- [x] Implement Mobile Number/OTP based login with Firebase
+
+- [x] Add Bottom Nav with HomePage, Search Events, Create Event, Profile Section
 
 - [ ] Add Registration Form for Signup
 
-- [ ] Add Bottom Nav with HomePage, Search Events, Create Event, Profile Section
+
