@@ -36,25 +36,31 @@ class _AuthenticateState extends State<Authenticate> {
   final AuthService auth = AuthService();
 
   Widget countryCodeDropDown() {
-    return DropdownButton<String>(
-      value: dropdownValue,
-      icon: const Icon(Icons.expand_more),
-      iconSize: 24,
-      elevation: 16,
-      itemHeight: 200,
-      underline: Container(height: 2, color: Theme.of(context).accentColor),
-      onChanged: (String newValue) {
-        setState(() {
-          dropdownValue = newValue;
-        });
-      },
-      items:
-          <String>['+91', '+1'].map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
+    return Container(
+      margin: EdgeInsets.only(right: 10),
+      child: DropdownButton<String>(
+        value: dropdownValue,
+        icon: const Icon(Icons.expand_more),
+        iconSize: 24,
+        underline: SizedBox.shrink(),
+        onChanged: (String newValue) {
+          setState(() {
+            dropdownValue = newValue;
+          });
+        },
+        items:
+            <String>['+91', '+1'].map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(
+              value,
+              style: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+          );
+        }).toList(),
+      ),
     );
   }
 
@@ -65,56 +71,63 @@ class _AuthenticateState extends State<Authenticate> {
         vertical: 10,
       ),
       child: Form(
-          child: Column(
-        children: [
-          SizedBox(
-            height: 10,
-          ),
-          ListTile(
-            leading: countryCodeDropDown(),
-            title: TextFormField(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 10,
+            ),
+            TextFormField(
+              keyboardType: TextInputType.phone,
+              style: TextStyle(
+                fontSize: 16,
+              ),
               controller: phoneNumber,
               decoration: InputDecoration(
+                contentPadding: EdgeInsets.zero,
+                prefix: countryCodeDropDown(),
+                hintStyle: TextStyle(
+                  fontSize: 16,
+                ),
                 hintText: "Enter your Phone Number",
                 focusColor: Theme.of(context).accentColor,
               ),
             ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Text(
-            'By signing up, I agree to the Terms of Service and Privacy Policy, including usage of Cookies',
-            style: TextStyle(
-              color: Colors.grey,
-              fontSize: 12,
+            SizedBox(
+              height: 20,
             ),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          GestureDetector(
-            onTap: () async {
-              setState(() {
-                isLoading = true;
-              });
-              await signWithPhoneNumber();
-            },
-            child: Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 10,
+            Text(
+              'By signing up, I agree to the Terms of Service and Privacy Policy, including usage of Cookies',
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 12,
               ),
-              decoration: BoxDecoration(
-                color: Theme.of(context).accentColor,
-                borderRadius: BorderRadius.circular(10000),
-              ),
-              child: Text("GET OTP"),
+              textAlign: TextAlign.center,
             ),
-          )
-        ],
-      )),
+            SizedBox(
+              height: 20,
+            ),
+            GestureDetector(
+              onTap: () async {
+                setState(() {
+                  isLoading = true;
+                });
+                await signWithPhoneNumber();
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 10,
+                ),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).accentColor,
+                  borderRadius: BorderRadius.circular(10000),
+                ),
+                child: Text("GET OTP"),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 
@@ -132,9 +145,15 @@ class _AuthenticateState extends State<Authenticate> {
             ),
             TextFormField(
               controller: otp,
+              style: TextStyle(
+                fontSize: 16,
+              ),
               decoration: InputDecoration(
                 focusColor: Theme.of(context).primaryColor,
                 hintText: "Enter OTP",
+                hintStyle: TextStyle(
+                  fontSize: 16,
+                ),
               ),
             ),
             SizedBox(
@@ -156,7 +175,13 @@ class _AuthenticateState extends State<Authenticate> {
                 PhoneAuthCredential phoneAuthCredential =
                     PhoneAuthProvider.credential(
                         verificationId: verificationID, smsCode: otp.text);
+                setState(() {
+                  isLoading = true;
+                });
                 signInWithCredential(phoneAuthCredential);
+                setState(() {
+                  isLoading = false;
+                });
               },
               child: Container(
                 padding: EdgeInsets.symmetric(
