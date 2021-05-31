@@ -15,7 +15,7 @@ class _HomeState extends State<Home> {
   List<Kontest> kontests = [
     Kontest(
       title: "Kontest #1",
-      imageUrl: "assets/images/chess2.jpg",
+      imageUrl: "assets/images/chess.jpg",
       startTime: DateTime.now(),
       endTime: DateTime.now(),
       description:
@@ -23,7 +23,7 @@ class _HomeState extends State<Home> {
     ),
     Kontest(
       title: "Kontest #2",
-      imageUrl: "assets/images/chess2.jpg",
+      imageUrl: "assets/images/chess.jpg",
       startTime: DateTime.now(),
       endTime: DateTime.now(),
       description:
@@ -31,7 +31,7 @@ class _HomeState extends State<Home> {
     ),
     Kontest(
       title: "Kontest #3",
-      imageUrl: "assets/images/chess2.jpg",
+      imageUrl: "assets/images/chess.jpg",
       startTime: DateTime.now(),
       endTime: DateTime.now(),
       description:
